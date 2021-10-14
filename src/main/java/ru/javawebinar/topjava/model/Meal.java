@@ -10,6 +10,8 @@ import java.util.List;
 public class Meal {
     public static final int LIMIT = 2000;
 
+    private Integer id;
+
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -31,6 +33,14 @@ public class Meal {
             new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 13, 0), "Обед", 500),
             new Meal(LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410)
     );
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public LocalDateTime getDateTime() {
         return dateTime;

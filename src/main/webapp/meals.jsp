@@ -17,7 +17,9 @@
 <h2>Meals</h2>
 <table border width="60%" cellspacing="0" style="height: 300px">
     <tr>
-        <th>Date</th><th>Description</th><th>Calories</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Calories</th>
     </tr>
         <c:forEach var="meal" items="${meals}">
             <c:if test="${meal.isExcess() == true}">
