@@ -41,9 +41,8 @@ public class MealService {
         checkNotFoundWithId(repository.save(userId, meal), meal.getId());
     }
 
-    public List<MealTo> getAllByDate(Integer userId, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
-//        return MealsUtil.getFilteredTos(getAll(userId), MealsUtil.DEFAULT_CALORIES_PER_DAY, startDate, startTime, endDate, endTime);
-        return repository.getAllByDate(userId, startDate, startTime, endDate, endTime);
+    public List<Meal> getAllByDate(Integer userId, LocalDate startDate, LocalDate endDate) {
+        return repository.getAllByDate(userId, startDate, endDate);
     }
 
 }

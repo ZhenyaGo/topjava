@@ -75,7 +75,8 @@ public class MealServlet extends HttpServlet {
                 else startTime = LocalTime.MIN;
                 if(request.getParameter("endTime") != null && !Objects.equals(request.getParameter("endTime"), "")) endTime = LocalTime.parse(request.getParameter("endTime"));
                 else endTime = LocalTime.MAX;
-                request.setAttribute("meals", repository.getAllByDate(SecurityUtil.authUserId(),startDate, startTime, endDate, endTime));
+                request.setAttribute("meals", MealsUtil.getFilteredTos(repository.getAllByDate(SecurityUtil.authUserId(),startDate, endDate),
+                        MealsUtil.DEFAULT_CALORIES_PER_DAY, startTime, endTime ));
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
             case "all":
             default:

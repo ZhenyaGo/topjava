@@ -67,8 +67,13 @@ public class InMemoryMealRepository implements MealRepository {
     }
 
     @Override
-    public List<MealTo> getAllByDate(Integer userId, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
-        return MealsUtil.getFilteredTos(getAll(userId), MealsUtil.DEFAULT_CALORIES_PER_DAY, startDate, startTime, endDate, endTime);
+    public List<Meal> getAllByDate(Integer userId, LocalDate startDate, LocalDate endDate) {
+        if(repository.containsKey(userId)) {
+            return getAll(userId).stream()
+                    .filter(meal -> meal.getDate().compareTo(startDate) >= 0 && meal.getDate().compareTo(endDate) <= 0)
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
 }
