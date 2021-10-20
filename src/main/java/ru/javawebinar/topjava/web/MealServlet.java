@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
@@ -37,7 +39,7 @@ public class MealServlet extends HttpServlet {
                 Integer.parseInt(request.getParameter("calories")));
 
         log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
-        repository.save(meal);
+        repository.save(SecurityUtil.authUserId(),meal);
         response.sendRedirect("meals");
     }
 
@@ -49,22 +51,37 @@ public class MealServlet extends HttpServlet {
             case "delete":
                 int id = getId(request);
                 log.info("Delete {}", id);
-                repository.delete(id);
+                repository.delete(SecurityUtil.authUserId(), id);
                 response.sendRedirect("meals");
                 break;
             case "create":
             case "update":
                 final Meal meal = "create".equals(action) ?
                         new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000) :
-                        repository.get(getId(request));
+                        repository.get(SecurityUtil.authUserId(),getId(request));
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
                 break;
+            case "filter":
+                LocalDate startDate;
+                LocalDate endDate;
+                LocalTime startTime;
+                LocalTime endTime;
+                if(request.getParameter("beginDate") != null && !Objects.equals(request.getParameter("beginDate"), "")) startDate = LocalDate.parse(request.getParameter("beginDate"));
+                else startDate = LocalDate.MIN;
+                if(request.getParameter("endDate") != null && !Objects.equals(request.getParameter("endDate"), "")) endDate = LocalDate.parse(request.getParameter("endDate"));
+                else endDate = LocalDate.MAX;
+                if(request.getParameter("beginTime") != null && !Objects.equals(request.getParameter("beginTime"), "")) startTime = LocalTime.parse(request.getParameter("beginTime"));
+                else startTime = LocalTime.MIN;
+                if(request.getParameter("endTime") != null && !Objects.equals(request.getParameter("endTime"), "")) endTime = LocalTime.parse(request.getParameter("endTime"));
+                else endTime = LocalTime.MAX;
+                request.setAttribute("meals", repository.getAllByDate(SecurityUtil.authUserId(),startDate, startTime, endDate, endTime));
+                request.getRequestDispatcher("/meals.jsp").forward(request, response);
             case "all":
             default:
                 log.info("getAll");
                 request.setAttribute("meals",
-                        MealsUtil.getTos(repository.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                        MealsUtil.getTos(repository.getAll(SecurityUtil.authUserId()), MealsUtil.DEFAULT_CALORIES_PER_DAY));
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
         }
