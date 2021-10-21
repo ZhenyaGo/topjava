@@ -3,11 +3,9 @@ package ru.javawebinar.topjava.repository.inmemory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,7 +71,7 @@ public class InMemoryMealRepository implements MealRepository {
                     .filter(meal -> meal.getDate().compareTo(startDate) >= 0 && meal.getDate().compareTo(endDate) <= 0)
                     .collect(Collectors.toList());
         }
-        return null;
+        return new ArrayList<>();
     }
 
 }
