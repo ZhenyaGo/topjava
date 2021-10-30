@@ -1,3 +1,5 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d5b1cfe23ce4b9d96e916650eadc49f)](https://www.codacy.com/gh/ZhenyaGo/topjava/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ZhenyaGo/topjava&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://app.travis-ci.com/ZhenyaGo/topjava.svg?branch=master)](https://app.travis-ci.com/ZhenyaGo/topjava)
 Java Enterprise Online Project
 ===============================
 
