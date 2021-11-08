@@ -16,11 +16,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.ActiveDbProfileResolver;
+import ru.javawebinar.topjava.ActiveRepositoryProfileResolver;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertThrows;
@@ -129,6 +132,7 @@ public class MealServiceTest {
 
     @Test
     public void getAll() {
+        List<Meal> actual = service.getAll(USER_ID);
         MEAL_MATCHER.assertMatch(service.getAll(USER_ID), meals);
     }
 
