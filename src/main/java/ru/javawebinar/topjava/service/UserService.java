@@ -15,7 +15,6 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
-//@Profile(Profiles.REPOSITORY_IMPLEMENTATION)
 public class UserService {
 
     private final UserRepository repository;

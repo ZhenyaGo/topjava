@@ -16,7 +16,6 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.atStartOfNextDayOrMax;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
-//@Profile(Profiles.REPOSITORY_IMPLEMENTATION)
 public class MealService {
 
     private final MealRepository repository;
