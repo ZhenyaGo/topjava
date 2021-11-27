@@ -36,6 +36,8 @@ public class SpringMain {
             System.out.println(mealController.getBetween(null, null, null, null));
 
             System.out.println();
+
+//            System.out.println(adminUserController.get(UserTestData.ADMIN_ID).getRoles());
         }
     }
 }
